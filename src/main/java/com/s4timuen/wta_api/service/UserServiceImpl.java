@@ -1,6 +1,6 @@
 package com.s4timuen.wta_api.service;
 
-import com.s4timuen.wta_api.entity.UserEntity;
+import com.s4timuen.wta_api.entity.User;
 import com.s4timuen.wta_api.model.UserModel;
 import com.s4timuen.wta_api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +26,9 @@ public class UserServiceImpl implements UserService {
      * @param userModel User data from request body.
      * @return A user object.
      */
-    public UserEntity registerUser(UserModel userModel) {
+    public User registerUser(UserModel userModel) {
 
-        UserEntity user = new UserEntity();
+        User user = new User();
         user.setNickname(userModel.getNickname());
         user.setFirstName(userModel.getFirstName());
         user.setLastName(userModel.getLastName());

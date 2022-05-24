@@ -14,7 +14,7 @@ import javax.persistence.*;
 @Builder
 @Entity
 @Table(name = "users")
-public class UserEntity {
+public class User {
 
     private final int MAX_PW_SIZE = 60;
 

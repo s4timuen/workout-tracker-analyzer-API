@@ -7,11 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+/**
+ * User service implementation.
+ */
 @Service
 public class UserServiceImpl implements UserService {
 
-    private final String ROLE_USER = "user";
-    private final String ROLE_ADMIN = "admin";
+    private static final String ROLE_USER = "user";
+    private static final String ROLE_ADMIN = "admin";
 
     @Autowired
     private UserRepository userRepository;

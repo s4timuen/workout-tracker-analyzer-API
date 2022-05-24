@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * User model (request/response body).
+ * Model for user data (request/response body).
  */
 @Data
 @NoArgsConstructor

@@ -16,7 +16,7 @@ import javax.persistence.*;
 @Table(name = "users")
 public class User {
 
-    private final int MAX_PW_SIZE = 60;
+    private static final int MAX_PW_SIZE = 60;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,8 +1,10 @@
 package com.s4timuen.wta_api.service;
 
 import com.s4timuen.wta_api.entity.User;
+import com.s4timuen.wta_api.entity.VerificationToken;
 import com.s4timuen.wta_api.model.UserModel;
 import com.s4timuen.wta_api.repository.UserRepository;
+import com.s4timuen.wta_api.repository.VerificationTokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private VerificationTokenRepository verificationTokenRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -41,5 +45,16 @@ public class UserServiceImpl implements UserService {
 
         userRepository.save(user);
         return user;
+    }
+
+    /**
+     * Save a verification token for a user.
+     *
+     * @param user  A user object.
+     * @param token Verification token.
+     */
+    public void saveVerificationTokenForUser(User user, String token) {
+        VerificationToken verificationToken = new VerificationToken(user, token);
+        verificationTokenRepository.save(verificationToken);
     }
 }

@@ -15,4 +15,12 @@ public interface UserService {
      * @return A user object.
      */
     User registerUser(UserModel userModel);
+
+    /**
+     * Save a verification token for a user.
+     *
+     * @param user  A user object.
+     * @param token Verification token.
+     */
+    void saveVerificationTokenForUser(User user, String token);
 }

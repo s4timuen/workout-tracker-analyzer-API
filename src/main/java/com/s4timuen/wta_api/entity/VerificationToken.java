@@ -13,10 +13,10 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @Entity
+@Table(name = "verification_tokens")
 public class VerificationToken {
 
-    // 30min
-    private static final int EXPIRATION_TIME = 30;
+    private static final int EXPIRATION_TIME = 30;  // 30min
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

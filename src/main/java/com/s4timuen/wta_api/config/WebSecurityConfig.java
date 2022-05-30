@@ -15,7 +15,10 @@ public class WebSecurityConfig {
 
     private static final int ENCRYPTION_COST_FACTOR = 12;
 
-    private static final String[] WHITELIST_URLS = {"api/v1/register/user"};
+    private static final String[] WHITELIST_URLS = {
+            "/registerUser",
+            "/verifyRegistration"
+    };
 
     /**
      * Password encoder.

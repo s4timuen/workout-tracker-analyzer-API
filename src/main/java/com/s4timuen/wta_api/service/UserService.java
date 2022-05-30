@@ -17,10 +17,18 @@ public interface UserService {
     User registerUser(UserModel userModel);
 
     /**
-     * Save a verification token for a user.
+     * Save a verification token for a user registration.
      *
      * @param user  A user object.
      * @param token Verification token.
      */
     void saveVerificationTokenForUser(User user, String token);
+
+    /**
+     * Validate a verification token for a user registration.
+     *
+     * @param token Verification token.
+     * @return Message whether verification token validation was successful or failed.
+     */
+    String validateVerificationToken(String token);
 }

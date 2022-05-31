@@ -3,7 +3,6 @@ package com.s4timuen.wta_api.event.listener;
 import com.s4timuen.wta_api.entity.User;
 import com.s4timuen.wta_api.event.UserRegistrationEvent;
 import com.s4timuen.wta_api.service.UserService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
@@ -13,7 +12,6 @@ import java.util.UUID;
 /**
  * Event listener for user registration.
  */
-@Slf4j
 @Component
 public class UserRegistrationEventListener implements ApplicationListener<UserRegistrationEvent> {
 
@@ -36,8 +34,6 @@ public class UserRegistrationEventListener implements ApplicationListener<UserRe
         String url = event.getApplicationUrl() + VERIFY_REGISTRATION + token;
 
         userService.saveVerificationTokenForUser(user, token);
-
-        // TODO: send email, instead of console
-        log.info("Click the link to verify your account. {}", url);
+        userService.sendVerificationTokenMail(user, url, "send");
     }
 }

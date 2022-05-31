@@ -1,6 +1,7 @@
 package com.s4timuen.wta_api.controller;
 
 import com.s4timuen.wta_api.entity.User;
+import com.s4timuen.wta_api.entity.VerificationToken;
 import com.s4timuen.wta_api.event.UserRegistrationEvent;
 import com.s4timuen.wta_api.model.UserModel;
 import com.s4timuen.wta_api.service.UserService;
@@ -25,6 +26,9 @@ public class UserRegistrationController {
             = "Registration verification failed.";
     private final static String MESSAGE_TOKEN_VALIDATION_SUCCESS
             = "Registration verification token validation successful.";
+    private static final String MESSAGE_VERIFICATION_MAIL_RESEND
+            = "Mail with user registration validation token has been resend.";
+
     @Autowired
     private UserService userService;
     @Autowired
@@ -55,11 +59,26 @@ public class UserRegistrationController {
     public String verifyRegistration(@RequestParam("token") String token) {
 
         String result = userService.validateVerificationToken(token);
-        System.out.println(token);
+
         if (result.equalsIgnoreCase(MESSAGE_TOKEN_VALIDATION_SUCCESS)) {
             return MESSAGE_REGISTRATION_VERIFICATION_SUCCESS;
         }
         return MESSAGE_REGISTRATION_VERIFICATION_FAIL;
+    }
+
+    /**
+     * Resend user registration verification token.
+     */
+    @GetMapping(path = "/resendVerificationToken")
+    public String resendVerificationToken(@RequestParam("token") String oldToken,
+                                          final HttpServletRequest request) {
+
+        VerificationToken verificationToken = userService.generateNewVerificationToken(oldToken);
+        User user = verificationToken.getUser();
+
+        userService.sendVerificationTokenMail(user, buildApplicationUrl(request), "resend");
+
+        return MESSAGE_VERIFICATION_MAIL_RESEND;
     }
 
     /**

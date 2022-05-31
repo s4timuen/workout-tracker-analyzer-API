@@ -34,6 +34,9 @@ public class UserRegistrationEventListener implements ApplicationListener<UserRe
         String url = event.getApplicationUrl() + VERIFY_REGISTRATION + token;
 
         userService.saveVerificationTokenForUser(user, token);
-        userService.sendVerificationTokenMail(user, url, "send");
+        userService.sendVerificationTokenMail(
+                user,
+                url,
+                UserService.MessageOption.SEND_VERIFICATION);
     }
 }

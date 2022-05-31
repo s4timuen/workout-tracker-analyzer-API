@@ -10,6 +10,16 @@ import com.s4timuen.wta_api.model.UserModel;
 public interface UserService {
 
     /**
+     * Options for mail messages.
+     */
+    enum MessageOption {
+        SEND_VERIFICATION,
+        RESEND_VERIFICATION,
+        NEW_PASSWORD,
+        CHANGE_PASSWORD
+    }
+
+    /**
      * Register a user.
      *
      * @param userModel User data from request body.
@@ -48,5 +58,5 @@ public interface UserService {
      * @param url           Verification link for user to click.
      * @param messageOption Different mail messages for user (first verification token or new token).
      */
-    void sendVerificationTokenMail(User user, String url, String messageOption);
+    void sendVerificationTokenMail(User user, String url, UserService.MessageOption messageOption);
 }

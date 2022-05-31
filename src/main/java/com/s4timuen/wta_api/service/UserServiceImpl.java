@@ -124,15 +124,21 @@ public class UserServiceImpl implements UserService {
      * @param user A user object.
      * @param url  Verification link for user to click.
      */
-    public void sendVerificationTokenMail(User user, String url, String messageOption) {
+    public void sendVerificationTokenMail(User user, String url, MessageOption messageOption) {
 
-        switch (messageOption.toLowerCase()) {
-            case "send" ->
+        switch (messageOption) {
+            case SEND_VERIFICATION ->
                 // TODO: send email with respective message, instead of console
                     log.info("Click the link to verify your account. {}", url);
-            case "resend" ->
+            case RESEND_VERIFICATION ->
                 // TODO: send email with respective message, instead of console
                     log.info("Click the new link to verify your account. {}", url);
+            case NEW_PASSWORD ->
+                // TODO: send email with respective message, instead of console
+                    log.info("Click the link to get a new password. {}", url);
+            case CHANGE_PASSWORD ->
+                // TODO: send email with respective message, instead of console
+                    log.info("Click the link to change your password. {}", url);
             default -> throw new IllegalStateException(MAIL_INVALID_MESSAGE_OPTION);
         }
     }

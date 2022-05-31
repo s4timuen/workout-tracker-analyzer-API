@@ -68,6 +68,10 @@ public class UserRegistrationController {
 
     /**
      * Resend user registration verification token.
+     *
+     * @param oldToken Initial or last generated token, may be expired.
+     * @param request  From request body.
+     * @return Message that a new verification token has been send.
      */
     @GetMapping(path = "/resendVerificationToken")
     public String resendVerificationToken(@RequestParam("token") String oldToken,
@@ -76,7 +80,10 @@ public class UserRegistrationController {
         VerificationToken verificationToken = userService.generateNewVerificationToken(oldToken);
         User user = verificationToken.getUser();
 
-        userService.sendVerificationTokenMail(user, buildApplicationUrl(request), "resend");
+        userService.sendVerificationTokenMail(
+                user,
+                buildApplicationUrl(request),
+                UserService.MessageOption.RESEND_VERIFICATION);
 
         return MESSAGE_VERIFICATION_MAIL_RESEND;
     }

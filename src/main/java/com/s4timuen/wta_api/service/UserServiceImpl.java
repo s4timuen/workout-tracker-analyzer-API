@@ -1,8 +1,10 @@
 package com.s4timuen.wta_api.service;
 
+import com.s4timuen.wta_api.entity.PasswordResetToken;
 import com.s4timuen.wta_api.entity.User;
 import com.s4timuen.wta_api.entity.VerificationToken;
 import com.s4timuen.wta_api.model.UserModel;
+import com.s4timuen.wta_api.repository.PasswordResetTokenRepository;
 import com.s4timuen.wta_api.repository.UserRepository;
 import com.s4timuen.wta_api.repository.VerificationTokenRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -33,11 +35,15 @@ public class UserServiceImpl implements UserService {
 
     private static final String MAIL_INVALID_MESSAGE_OPTION
             = "Invalid option for mail message.";
+    private static final String MESSAGE_USER_NOT_FOUND
+            = "No user found for the respective email address.";
 
     @Autowired
     private UserRepository userRepository;
     @Autowired
     private VerificationTokenRepository verificationTokenRepository;
+    @Autowired
+    private PasswordResetTokenRepository passwordResetTokenRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -124,7 +130,7 @@ public class UserServiceImpl implements UserService {
      * @param user A user object.
      * @param url  Verification link for user to click.
      */
-    public void sendVerificationTokenMail(User user, String url, MessageOption messageOption) {
+    public void sendTokenMail(User user, String url, MessageOption messageOption) {
 
         switch (messageOption) {
             case SEND_VERIFICATION ->
@@ -133,7 +139,7 @@ public class UserServiceImpl implements UserService {
             case RESEND_VERIFICATION ->
                 // TODO: send email with respective message, instead of console
                     log.info("Click the new link to verify your account. {}", url);
-            case NEW_PASSWORD ->
+            case RESET_PASSWORD ->
                 // TODO: send email with respective message, instead of console
                     log.info("Click the link to get a new password. {}", url);
             case CHANGE_PASSWORD ->
@@ -141,5 +147,36 @@ public class UserServiceImpl implements UserService {
                     log.info("Click the link to change your password. {}", url);
             default -> throw new IllegalStateException(MAIL_INVALID_MESSAGE_OPTION);
         }
+    }
+
+    /**
+     * Generate and save a password reset token for a user.
+     *
+     * @param user A user object.
+     */
+    public PasswordResetToken generatePasswordResetToken(User user) {
+
+        PasswordResetToken passwordResetToken = new PasswordResetToken(user,
+                UUID.randomUUID().toString());
+        passwordResetTokenRepository.save(passwordResetToken);
+
+        return passwordResetToken;
+    }
+
+    /**
+     * Find a user by the respective email.
+     *
+     * @param email An email address.
+     * @return A user object.
+     */
+    @Override
+    public User findUserByEmail(String email) {
+
+        Optional<User> user = userRepository.findByEmail(email);
+
+        if (user.isEmpty()) {
+            throw new IllegalStateException(MESSAGE_USER_NOT_FOUND);
+        }
+        return user.get();
     }
 }

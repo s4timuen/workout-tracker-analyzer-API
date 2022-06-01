@@ -1,8 +1,10 @@
 package com.s4timuen.wta_api.controller;
 
+import com.s4timuen.wta_api.entity.PasswordResetToken;
 import com.s4timuen.wta_api.entity.User;
 import com.s4timuen.wta_api.entity.VerificationToken;
 import com.s4timuen.wta_api.event.UserRegistrationEvent;
+import com.s4timuen.wta_api.model.PasswordModel;
 import com.s4timuen.wta_api.model.UserModel;
 import com.s4timuen.wta_api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping(path = "/api/v1")
 public class UserRegistrationController {
 
+    private static final String RESEND_VERIFY_REGISTRATION = "/resendVerificationToken?token=";
+    private static final String RESET_PASSWORD = "/resetPassword?token=";
+
     private static final String MESSAGE_USER_REGISTRATION_SUCCESS
             = "User registration successful.";
     private static final String MESSAGE_REGISTRATION_VERIFICATION_SUCCESS
@@ -28,6 +33,8 @@ public class UserRegistrationController {
             = "Registration verification token validation successful.";
     private static final String MESSAGE_VERIFICATION_MAIL_RESEND
             = "Mail with user registration validation token has been resend.";
+    private static final String MESSAGE_RESET_PASSWORD_MAIL_SEND
+            = "Mail with new password has been send.";
 
     @Autowired
     private UserService userService;
@@ -71,7 +78,7 @@ public class UserRegistrationController {
      *
      * @param oldToken Initial or last generated token, may be expired.
      * @param request  From request body.
-     * @return Message that a new verification token has been send.
+     * @return Message that a new verification token has been sent.
      */
     @GetMapping(path = "/resendVerificationToken")
     public String resendVerificationToken(@RequestParam("token") String oldToken,
@@ -80,12 +87,25 @@ public class UserRegistrationController {
         VerificationToken verificationToken = userService.generateNewVerificationToken(oldToken);
         User user = verificationToken.getUser();
 
-        userService.sendVerificationTokenMail(
+        userService.sendTokenMail(
                 user,
-                buildApplicationUrl(request),
+                buildApplicationUrl(request) + RESEND_VERIFY_REGISTRATION + verificationToken,
                 UserService.MessageOption.RESEND_VERIFICATION);
 
         return MESSAGE_VERIFICATION_MAIL_RESEND;
+    }
+
+    @PostMapping(path = "/resetPassword")
+    public String resetPassword(@RequestBody PasswordModel passwordModel, final HttpServletRequest request) {
+
+        User user = userService.findUserByEmail(passwordModel.getEmail());
+        PasswordResetToken passwordResetToken = userService.generatePasswordResetToken(user);
+        userService.sendTokenMail(
+                user,
+                buildApplicationUrl(request) + RESET_PASSWORD + passwordResetToken,
+                UserService.MessageOption.RESET_PASSWORD);
+
+        return MESSAGE_RESET_PASSWORD_MAIL_SEND;
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.s4timuen.wta_api.service;
 
+import com.s4timuen.wta_api.entity.PasswordResetToken;
 import com.s4timuen.wta_api.entity.User;
 import com.s4timuen.wta_api.entity.VerificationToken;
 import com.s4timuen.wta_api.model.UserModel;
@@ -15,7 +16,7 @@ public interface UserService {
     enum MessageOption {
         SEND_VERIFICATION,
         RESEND_VERIFICATION,
-        NEW_PASSWORD,
+        RESET_PASSWORD,
         CHANGE_PASSWORD
     }
 
@@ -58,5 +59,20 @@ public interface UserService {
      * @param url           Verification link for user to click.
      * @param messageOption Different mail messages for user (first verification token or new token).
      */
-    void sendVerificationTokenMail(User user, String url, UserService.MessageOption messageOption);
+    void sendTokenMail(User user, String url, UserService.MessageOption messageOption);
+
+    /**
+     * Generate and save a password reset token for a user.
+     *
+     * @param user A user object.
+     */
+    PasswordResetToken generatePasswordResetToken(User user);
+
+    /**
+     * Find a user by the respective email.
+     *
+     * @param email An email address.
+     * @return A user object.
+     */
+    User findUserByEmail(String email);
 }

@@ -12,6 +12,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Optional;
 
 /**
  * Controller for user registration.
@@ -22,19 +23,28 @@ public class UserRegistrationController {
 
     private static final String RESEND_VERIFY_REGISTRATION = "/resendVerificationToken?token=";
     private static final String RESET_PASSWORD = "/resetPassword?token=";
+    private static final String CHANGE_PASSWORD = "/changePassword?token=";
 
     private static final String MESSAGE_USER_REGISTRATION_SUCCESS
             = "User registration successful.";
     private static final String MESSAGE_REGISTRATION_VERIFICATION_SUCCESS
             = "Registration verification successful.";
     private static final String MESSAGE_REGISTRATION_VERIFICATION_FAIL
-            = "Registration verification failed.";
+            = "Registration verification token validation failed.";
     private final static String MESSAGE_TOKEN_VALIDATION_SUCCESS
             = "Registration verification token validation successful.";
+    private static final String MESSAGE_TOKEN_PASSWORD_RESET_FAIL
+            = "Password reset token validation failed.";
+    private final static String MESSAGE_TOKEN_PASSWORD_RESET_SUCCESS
+            = "Password reset token validation successful.";
     private static final String MESSAGE_VERIFICATION_MAIL_RESEND
             = "Mail with user registration validation token has been resend.";
     private static final String MESSAGE_RESET_PASSWORD_MAIL_SEND
-            = "Mail with new password has been send.";
+            = "Mail with user reset password token has been send.";
+    private static final String MESSAGE_CHANGE_PASSWORD_SUCCESS
+            = "Password has been successfully changed.";
+    private static final String MESSAGE_OLD_PASSWORD_INVALID
+            = "Old Password is invalid.";
 
     @Autowired
     private UserService userService;
@@ -44,7 +54,8 @@ public class UserRegistrationController {
     /**
      * User registration.
      *
-     * @param userModel User data from request body.
+     * @param userModel User data.
+     * @param request   From request body.
      * @return Success message.
      */
     @PostMapping(path = "/registerUser")
@@ -95,10 +106,18 @@ public class UserRegistrationController {
         return MESSAGE_VERIFICATION_MAIL_RESEND;
     }
 
+    /**
+     * Send user password reset token.
+     *
+     * @param passwordModel Password data.
+     * @param request       From request body.
+     * @return Message that a reset password token has been sent.
+     */
     @PostMapping(path = "/resetPassword")
-    public String resetPassword(@RequestBody PasswordModel passwordModel, final HttpServletRequest request) {
+    public String resetPassword(@RequestBody PasswordModel passwordModel,
+                                final HttpServletRequest request) {
 
-        User user = userService.findUserByEmail(passwordModel.getEmail());
+        User user = userService.getUserByEmail(passwordModel.getEmail());
         PasswordResetToken passwordResetToken = userService.generatePasswordResetToken(user);
         userService.sendTokenMail(
                 user,
@@ -106,6 +125,39 @@ public class UserRegistrationController {
                 UserService.MessageOption.RESET_PASSWORD);
 
         return MESSAGE_RESET_PASSWORD_MAIL_SEND;
+    }
+
+    @PostMapping(path = "/changePassword")
+    public String changePassword(@RequestBody PasswordModel passwordModel) {
+
+        User user = userService.getUserByEmail(passwordModel.getEmail());
+
+        if(!userService.checkOldPasswordValid(user, passwordModel.getOldPassword())) {
+            return MESSAGE_OLD_PASSWORD_INVALID;
+        }
+
+        userService.changePassword(user, passwordModel.getNewPassword());
+        return MESSAGE_CHANGE_PASSWORD_SUCCESS;
+    }
+
+    @PostMapping(path = "/savePassword")
+    public String savePassword(@RequestParam("token") String token,
+                               @RequestBody PasswordModel passwordModel) {
+
+        String result = userService.validatePasswordResetToken(token);
+
+        if (!result.equalsIgnoreCase(MESSAGE_TOKEN_PASSWORD_RESET_SUCCESS)) {
+            return MESSAGE_TOKEN_PASSWORD_RESET_FAIL;
+        }
+
+        Optional<User> user = userService.getUserByPasswordResetToken(token);
+
+        if(user.isEmpty()) {
+            return MESSAGE_TOKEN_PASSWORD_RESET_FAIL;
+        }
+
+        userService.changePassword(user.get(), passwordModel.getNewPassword());
+        return MESSAGE_TOKEN_PASSWORD_RESET_SUCCESS;
     }
 
     /**

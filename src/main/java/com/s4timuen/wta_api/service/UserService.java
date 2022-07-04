@@ -1,9 +1,13 @@
 package com.s4timuen.wta_api.service;
 
+import com.s4timuen.wta_api.entity.PasswordChangeToken;
 import com.s4timuen.wta_api.entity.PasswordResetToken;
 import com.s4timuen.wta_api.entity.User;
 import com.s4timuen.wta_api.entity.VerificationToken;
+import com.s4timuen.wta_api.model.PasswordModel;
 import com.s4timuen.wta_api.model.UserModel;
+
+import java.util.Optional;
 
 /**
  * User service interface.
@@ -45,6 +49,22 @@ public interface UserService {
     String validateVerificationToken(String token);
 
     /**
+     * Validate a password reset token.
+     *
+     * @param token Password reset token.
+     * @return Message whether password reset token validation was successful or failed.
+     */
+    String validatePasswordResetToken(String token);
+
+    /**
+     * Validate a password change token.
+     *
+     * @param token Password change token.
+     * @return Message whether password change token validation was successful or failed.
+     */
+    String validatePasswordChangeToken(String token);
+
+    /**
      * Generate a new token, whether the old one is already expired or not.
      *
      * @param oldToken Expired verification token.
@@ -69,10 +89,41 @@ public interface UserService {
     PasswordResetToken generatePasswordResetToken(User user);
 
     /**
-     * Find a user by the respective email.
+     * Generate and save a password change token for a user.
+     *
+     * @param user A user object.
+     */
+    PasswordChangeToken generatePasswordChangeToken(User user);
+
+    /**
+     * Change a user password.
+     *
+     * @param user A user object.
+     * @param newPassword A new password.
+     */
+    void changePassword(User user, String newPassword);
+
+    /**
+     * Check if the old password is valid.
+     *
+     * @param user A user object.
+     * @param oldPassword The old password to validate.
+     */
+    boolean checkOldPasswordValid(User user, String oldPassword);
+
+    /**
+     * Get a user by the respective email.
      *
      * @param email An email address.
      * @return A user object.
      */
-    User findUserByEmail(String email);
+    User getUserByEmail(String email);
+
+    /**
+     * Get a user by the respective reset token.
+     *
+     * @param token A reset token.
+     * @return A user object.
+     */
+    Optional<User> getUserByPasswordResetToken(String token);
 }

@@ -9,14 +9,15 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * User password reset token.
+ * User password change token.
  */
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "password_reset_tokens")
-public class PasswordResetToken {
+@Table(name = "password_change_tokens")
+public class PasswordChangeToken {
+
 
     private static final int EXPIRATION_TIME = 30;  // 30min
 
@@ -32,12 +33,12 @@ public class PasswordResetToken {
     private Date expirationDate;
 
     /**
-     * Constructor for class PasswordResetToken.
+     * Constructor for class PasswordChangeToken.
      *
      * @param user  User object.
-     * @param token Password reset token.
+     * @param token Password change token.
      */
-    public PasswordResetToken(User user, String token) {
+    public PasswordChangeToken(User user, String token) {
         super();
         this.user = user;
         this.token = token;
@@ -45,11 +46,11 @@ public class PasswordResetToken {
     }
 
     /**
-     * Constructor for class PasswordResetToken.
+     * Constructor for class PasswordChangeToken.
      *
-     * @param token Password reset token.
+     * @param token Password change token.
      */
-    public PasswordResetToken(String token) {
+    public PasswordChangeToken(String token) {
         super();
         this.token = token;
         this.expirationDate = calculateExpirationDate(EXPIRATION_TIME);

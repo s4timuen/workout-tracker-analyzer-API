@@ -22,7 +22,7 @@ public class VerificationToken {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", nullable = false, foreignKey = @ForeignKey(name = "FK_USER_VERIFY_TOKEN"))
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
     @Column(name = "verification_token", nullable = false)
     private String token;

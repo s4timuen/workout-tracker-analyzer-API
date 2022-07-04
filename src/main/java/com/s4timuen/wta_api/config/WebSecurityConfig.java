@@ -18,7 +18,9 @@ public class WebSecurityConfig {
     private static final String[] WHITELIST_URLS = {
             "/registerUser",
             "/verifyRegistration",
-            "/resendVerificationToken"
+            "/resendVerificationToken",
+            "/resetPassword",
+            "/changePassword"
     };
 
     /**

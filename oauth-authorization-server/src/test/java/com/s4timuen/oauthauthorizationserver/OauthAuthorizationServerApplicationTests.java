@@ -1,4 +1,4 @@
-package com.muenzinger.oauthauthorizationserver;
+package com.s4timuen.oauthauthorizationserver;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

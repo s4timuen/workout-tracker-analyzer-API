@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     private static final String ERROR_BAD_CREDENTIALS
-            = "Bad credentials.";
+            = "Bad credentials/Unregistered user/Unverified user.";
 
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
@@ -58,7 +58,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
      * @throws BadCredentialsException If user credentials do not match.
      */
     private Authentication checkUserPassword(UserDetails user, String rawPassword) {
-        if (passwordEncoder.matches(user.getPassword(), rawPassword)) {
+        if (passwordEncoder.matches(rawPassword, user.getPassword())) {
             return new UsernamePasswordAuthenticationToken(
                     user.getUsername(),
                     user.getPassword(),

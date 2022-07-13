@@ -1,8 +1,6 @@
 package com.s4timuen.springsecurityclient.config;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -19,9 +17,9 @@ public class WebSecurityConfig {
     private static final int ENCRYPTION_COST_FACTOR = 12;
 
     private static final String[] WHITELIST_URLS = {
-            "/registerUser",
-            "/verifyRegistration",
-            "/resendVerificationToken"
+            "/api/v1/registerUser",
+            "/api/v1/verifyRegistration",
+            "/api/v1/resendVerificationToken"
     };
 
     /**

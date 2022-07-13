@@ -23,7 +23,6 @@ public class UserRegistrationController {
 
     private static final String RESEND_VERIFY_REGISTRATION = "/resendVerificationToken?token=";
     private static final String RESET_PASSWORD = "/resetPassword?token=";
-    private static final String CHANGE_PASSWORD = "/changePassword?token=";
 
     private static final String MESSAGE_USER_REGISTRATION_SUCCESS
             = "User registration successful.";

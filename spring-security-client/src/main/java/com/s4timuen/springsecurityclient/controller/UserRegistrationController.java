@@ -31,11 +31,11 @@ public class UserRegistrationController {
             = "Registration verification successful.";
     private static final String MESSAGE_REGISTRATION_VERIFICATION_FAIL
             = "Registration verification token validation failed.";
-    private final static String MESSAGE_TOKEN_VALIDATION_SUCCESS
+    private static final String MESSAGE_TOKEN_VALIDATION_SUCCESS
             = "Registration verification token validation successful.";
     private static final String MESSAGE_TOKEN_PASSWORD_RESET_FAIL
             = "Password reset token validation failed.";
-    private final static String MESSAGE_TOKEN_PASSWORD_RESET_SUCCESS
+    private static final String MESSAGE_TOKEN_PASSWORD_RESET_SUCCESS
             = "Password reset token validation successful.";
     private static final String MESSAGE_VERIFICATION_MAIL_RESEND
             = "Mail with user registration validation token has been resend.";

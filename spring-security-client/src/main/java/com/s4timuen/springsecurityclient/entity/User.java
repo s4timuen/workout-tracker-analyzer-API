@@ -31,8 +31,8 @@ public class User {
     private String email;
     @Column(name = "password", nullable = false, length = MAX_PW_SIZE)
     private String password;
-    @Column(name = "role", nullable = false)
-    private String role;
+    @Column(name = "roles", nullable = false)
+    private String[] roles;
     @Column(name = "enabled", nullable = false)
     private boolean enabled = false;
 }

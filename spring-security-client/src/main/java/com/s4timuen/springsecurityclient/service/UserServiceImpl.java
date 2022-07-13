@@ -25,8 +25,7 @@ import java.util.UUID;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private static final String ROLE_USER = "user";
-    private static final String ROLE_ADMIN = "admin";
+    private static final String[] ROLES_USER = {"user"};
 
     private static final String MESSAGE_TOKEN_VALIDATION_SUCCESS
             = "Registration verification token validation successful.";
@@ -79,7 +78,7 @@ public class UserServiceImpl implements UserService {
         user.setLastName(userModel.getLastName());
         user.setEmail(userModel.getEmail());
         user.setPassword(passwordEncoder.encode(userModel.getPassword()));
-        user.setRole(ROLE_USER);
+        user.setRoles(ROLES_USER);
 
         userRepository.save(user);
         return user;

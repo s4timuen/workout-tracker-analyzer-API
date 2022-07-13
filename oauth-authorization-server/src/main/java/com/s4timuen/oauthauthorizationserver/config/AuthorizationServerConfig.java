@@ -93,7 +93,6 @@ public class AuthorizationServerConfig {
 
     /**
      * Build the provider settings.
-     * See application.properties for port.
      *
      * @return Provider settings.
      */
@@ -101,7 +100,7 @@ public class AuthorizationServerConfig {
     public ProviderSettings providerSettings() {
         return ProviderSettings
                 .builder()
-                .issuer("http://auth-server:8090")
+                .issuer("http://auth-server:9000") // enable by adding "127.0.0.1 auth-server" to /etc/hosts
                 .build();
     }
 

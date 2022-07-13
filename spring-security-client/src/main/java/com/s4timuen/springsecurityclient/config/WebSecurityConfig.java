@@ -21,9 +21,7 @@ public class WebSecurityConfig {
     private static final String[] WHITELIST_URLS = {
             "/registerUser",
             "/verifyRegistration",
-            "/resendVerificationToken",
-            "/resetPassword",
-            "/changePassword"
+            "/resendVerificationToken"
     };
 
     /**
@@ -53,7 +51,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests()
                 .antMatchers(WHITELIST_URLS)
                 .permitAll()
-                .antMatchers("/api/v1/**")
+                .antMatchers("/api/**")
                 .authenticated()
                 .and()
                 .oauth2Login(oauth2login ->

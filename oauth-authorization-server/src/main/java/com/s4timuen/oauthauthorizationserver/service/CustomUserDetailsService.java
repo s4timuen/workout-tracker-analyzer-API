@@ -28,8 +28,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     private static final int ENCRYPTION_COST_FACTOR = 12;
 
-    private static final String USER_NOT_FOUND
-            = "User not found.";
+    private static final String USER_NOT_FOUND = "User not found.";
 
     @Autowired
     private UserRepository userRepository;
@@ -67,8 +66,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                 true,
                 true,
                 true,
-                getAuthorities(List.of(user.get().getRoles()))
-        );
+                getAuthorities(user.get().getRoles()));
     }
 
     /**

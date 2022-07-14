@@ -14,9 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Calendar;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * User service implementation.
@@ -25,7 +23,7 @@ import java.util.UUID;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private static final String[] ROLES_USER = {"user"};
+    private static final List<String> ROLES_USER = List.of("user");
 
     private static final String MESSAGE_TOKEN_VALIDATION_SUCCESS
             = "Registration verification token validation successful.";

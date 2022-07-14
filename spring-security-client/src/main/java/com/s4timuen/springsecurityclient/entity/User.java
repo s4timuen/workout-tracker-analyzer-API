@@ -3,6 +3,7 @@ package com.s4timuen.springsecurityclient.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * User entity.
@@ -31,8 +32,10 @@ public class User {
     private String email;
     @Column(name = "password", nullable = false, length = MAX_PW_SIZE)
     private String password;
+    @ElementCollection
+    @CollectionTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "roles", nullable = false)
-    private String[] roles;
+    private List<String> roles;
     @Column(name = "enabled", nullable = false)
     private boolean enabled = false;
 }

@@ -8,6 +8,9 @@ import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 import org.junit.platform.suite.api.SuiteDisplayName;
 
+/**
+ * Test suite for spring security client repositories tests.
+ */
 @SelectClasses({
         UserRepositoryTests.class,
         VerificationTokenRepositoryTests.class,

@@ -18,6 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Verification token repository tests.
  */
 @DataJpaTest
+@DisplayName("Verification Token Repository")
 public class VerificationTokenRepositoryTests {
 
     @Autowired
@@ -62,7 +63,7 @@ public class VerificationTokenRepositoryTests {
      */
     @Test
     @DirtiesContext
-    @DisplayName("Verification Token Repository - Find Token By Token Test")
+    @DisplayName("Find Token By Token")
     public void findByToken() {
         // given
         String invalidToken = UUID.randomUUID().toString();

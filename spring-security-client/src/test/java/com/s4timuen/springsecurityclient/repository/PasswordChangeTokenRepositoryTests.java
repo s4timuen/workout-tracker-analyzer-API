@@ -19,6 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Password change token repository tests.
  */
 @DataJpaTest
+@DisplayName("Password Change Token Repository")
 public class PasswordChangeTokenRepositoryTests {
 
     @Autowired
@@ -63,7 +64,7 @@ public class PasswordChangeTokenRepositoryTests {
      */
     @Test
     @DirtiesContext
-    @DisplayName("Password Change Token Repository - Find Token By Token Test")
+    @DisplayName("Find Token By Token")
     public void findByToken() {
         // given
         String invalidToken = UUID.randomUUID().toString();

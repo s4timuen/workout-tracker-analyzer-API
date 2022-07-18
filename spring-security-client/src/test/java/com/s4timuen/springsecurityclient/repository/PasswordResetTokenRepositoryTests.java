@@ -18,6 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Password reset token repository tests.
  */
 @DataJpaTest
+@DisplayName("Password Reset Token Repository")
 public class PasswordResetTokenRepositoryTests {
 
     @Autowired
@@ -62,7 +63,7 @@ public class PasswordResetTokenRepositoryTests {
      */
     @Test
     @DirtiesContext
-    @DisplayName("Password Reset Token Repository - Find Token By Token Test")
+    @DisplayName("Find Token By Token")
     public void findByToken() {
         // given
         String invalidToken = UUID.randomUUID().toString();

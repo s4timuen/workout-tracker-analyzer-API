@@ -18,6 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * User repository tests.
  */
 @DataJpaTest
+@DisplayName("User Repository")
 public class UserRepositoryTests {
 
     @Autowired
@@ -49,7 +50,7 @@ public class UserRepositoryTests {
      */
     @Test
     @DirtiesContext
-    @DisplayName("User Repository - Find User By Name Test")
+    @DisplayName("Find User By Name")
     public void findByNickname() {
         // when
         Optional<User> testUser01 = userRepository.findByNickname(user.getNickname());
@@ -65,7 +66,7 @@ public class UserRepositoryTests {
      */
     @Test
     @DirtiesContext
-    @DisplayName("User Repository - Find User By Email Test")
+    @DisplayName("Find User By Email")
     public void findByEmail() {
         // when
         Optional<User> testUser01 = userRepository.findByEmail(user.getEmail());

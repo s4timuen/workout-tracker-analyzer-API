@@ -13,6 +13,7 @@ import org.springframework.security.web.SecurityFilterChain;
  * Default security configuration.
  */
 @EnableWebSecurity
+@SuppressWarnings("unused")
 public class DefaultSecurityConfig {
 
     @Autowired

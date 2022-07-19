@@ -61,6 +61,7 @@ public interface UserService {
      * @param token Password change token.
      * @return Message whether password change token validation was successful or failed.
      */
+    @SuppressWarnings("unused")
     String validatePasswordChangeToken(String token);
 
     /**
@@ -92,6 +93,7 @@ public interface UserService {
      *
      * @param user A user object.
      */
+    @SuppressWarnings("unused")
     PasswordChangeToken generatePasswordChangeToken(User user);
 
     /**

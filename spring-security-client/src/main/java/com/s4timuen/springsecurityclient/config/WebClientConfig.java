@@ -15,6 +15,7 @@ import org.springframework.web.reactive.function.client.WebClient;
  * Configuration for web client.
  */
 @Configuration
+@SuppressWarnings("unused")
 public class WebClientConfig {
 
     /**

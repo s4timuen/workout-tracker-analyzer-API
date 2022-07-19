@@ -33,6 +33,7 @@ import java.util.UUID;
  * Configuration for authentication server.
  */
 @Configuration(proxyBeanMethods = false)
+@SuppressWarnings("unused")
 public class AuthorizationServerConfig {
 
     private static final int KEY_SIZE = 2048;

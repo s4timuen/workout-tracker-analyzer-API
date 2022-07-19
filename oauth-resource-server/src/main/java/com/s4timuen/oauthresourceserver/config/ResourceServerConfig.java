@@ -9,6 +9,7 @@ import org.springframework.security.web.SecurityFilterChain;
  * Configuration for resource server.
  */
 @EnableWebSecurity
+@SuppressWarnings("unused")
 public class ResourceServerConfig {
 
     /**

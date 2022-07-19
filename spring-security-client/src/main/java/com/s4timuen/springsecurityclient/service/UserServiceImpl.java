@@ -49,14 +49,19 @@ public class UserServiceImpl implements UserService {
             = "No user found for the respective email address.";
 
     @Autowired
+    @SuppressWarnings("unused")
     private UserRepository userRepository;
     @Autowired
+    @SuppressWarnings("unused")
     private VerificationTokenRepository verificationTokenRepository;
     @Autowired
+    @SuppressWarnings("unused")
     private PasswordResetTokenRepository passwordResetTokenRepository;
     @Autowired
+    @SuppressWarnings("unused")
     private PasswordChangeTokenRepository passwordChangeTokenRepository;
     @Autowired
+    @SuppressWarnings("unused")
     private PasswordEncoder passwordEncoder;
 
     /**
@@ -141,7 +146,6 @@ public class UserServiceImpl implements UserService {
             return MESSAGE_TOKEN_PASSWORD_RESET_FAIL_TOKEN_INVALID;
         }
 
-        User user = passwordResetToken.get().getUser();
         Calendar calendar = Calendar.getInstance();
 
         if (passwordResetToken.get().getExpirationDate().getTime()
@@ -170,7 +174,6 @@ public class UserServiceImpl implements UserService {
             return MESSAGE_TOKEN_PASSWORD_CHANGE_FAIL_TOKEN_INVALID;
         }
 
-        User user = passwordChangeToken.get().getUser();
         Calendar calendar = Calendar.getInstance();
 
         if (passwordChangeToken.get().getExpirationDate().getTime()
@@ -192,7 +195,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public VerificationToken generateNewVerificationToken(String oldToken) {
 
-        VerificationToken verificationToken = verificationTokenRepository.findByToken(oldToken).get();
+        VerificationToken verificationToken = verificationTokenRepository.findByToken(oldToken)
+                .orElseThrow(() -> new IllegalStateException(MESSAGE_USER_NOT_FOUND));
         verificationToken.setToken(UUID.randomUUID().toString());
         verificationTokenRepository.save(verificationToken);
 
@@ -258,7 +262,7 @@ public class UserServiceImpl implements UserService {
     /**
      * Change a user password.
      *
-     * @param user A user object.
+     * @param user        A user object.
      * @param newPassword A new password.
      */
     @Override
@@ -271,7 +275,7 @@ public class UserServiceImpl implements UserService {
     /**
      * Check if the old password is valid.
      *
-     * @param user A user object.
+     * @param user        A user object.
      * @param oldPassword The old password to validate.
      */
     @Override
@@ -293,7 +297,7 @@ public class UserServiceImpl implements UserService {
         if (user.isEmpty()) {
             throw new IllegalStateException(MESSAGE_USER_NOT_FOUND);
         }
-        return user.get();
+        return user.orElseThrow(() -> new IllegalStateException(MESSAGE_USER_NOT_FOUND));
     }
 
     /**
@@ -305,6 +309,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> getUserByPasswordResetToken(String token) {
 
-        return Optional.ofNullable(passwordResetTokenRepository.findByToken(token).get().getUser());
+        return Optional.ofNullable(passwordResetTokenRepository.findByToken(token)
+                .orElseThrow(() -> new IllegalStateException(MESSAGE_USER_NOT_FOUND)).getUser());
     }
 }

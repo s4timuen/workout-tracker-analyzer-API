@@ -13,11 +13,13 @@ import java.util.UUID;
  * Event listener for user registration.
  */
 @Component
+@SuppressWarnings("unused")
 public class UserRegistrationEventListener implements ApplicationListener<UserRegistrationEvent> {
 
     private static final String VERIFY_REGISTRATION = "/verifyRegistration?token=";
 
     @Autowired
+    @SuppressWarnings("unused")
     private UserService userService;
 
     /**

@@ -37,19 +37,7 @@ public class VerificationToken {
      * @param token Verification token.
      */
     public VerificationToken(User user, String token) {
-        super();
         this.user = user;
-        this.token = token;
-        this.expirationDate = calculateExpirationDate(EXPIRATION_TIME);
-    }
-
-    /**
-     * Constructor for class VerificationToken.
-     *
-     * @param token Verification token.
-     */
-    public VerificationToken(String token) {
-        super();
         this.token = token;
         this.expirationDate = calculateExpirationDate(EXPIRATION_TIME);
     }
@@ -60,6 +48,7 @@ public class VerificationToken {
      * @param expirationTime How long the token is valid, in minutes.
      * @return Date and time, when the token expires.
      */
+    @SuppressWarnings("SameParameterValue")
     private Date calculateExpirationDate(int expirationTime) {
 
         Calendar calendar = Calendar.getInstance();

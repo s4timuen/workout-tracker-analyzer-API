@@ -17,6 +17,7 @@ import java.util.Optional;
 /**
  * Controller for user registration.
  */
+@SuppressWarnings("unused")
 @RestController
 @RequestMapping(path = "/api/v1")
 public class UserRegistrationController {

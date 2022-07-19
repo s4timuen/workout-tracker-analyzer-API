@@ -10,6 +10,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import static org.springframework.security.oauth2.client.web.reactive.function.client.ServletOAuth2AuthorizedClientExchangeFilterFunction.oauth2AuthorizedClient;
 
+@SuppressWarnings("unused")
 @RestController
 @RequestMapping(path = "/api/v1")
 public class PlaceholderController {

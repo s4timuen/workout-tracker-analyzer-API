@@ -31,6 +31,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     private static final String USER_NOT_FOUND = "User not found.";
 
     @Autowired
+    @SuppressWarnings("unused")
     private UserRepository userRepository;
 
     /**
@@ -39,6 +40,7 @@ public class CustomUserDetailsService implements UserDetailsService {
      * @return Encoder with respective encryption cost factor.
      */
     @Bean
+    @SuppressWarnings("unused")
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(ENCRYPTION_COST_FACTOR);
     }

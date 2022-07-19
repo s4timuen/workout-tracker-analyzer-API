@@ -51,8 +51,8 @@ public class PasswordResetToken {
      *
      * @param token Password reset token.
      */
+    @SuppressWarnings("unused")
     public PasswordResetToken(String token) {
-        super();
         this.token = token;
         this.expirationDate = calculateExpirationDate(EXPIRATION_TIME);
     }
@@ -63,6 +63,7 @@ public class PasswordResetToken {
      * @param expirationTime How long the token is valid, in minutes.
      * @return Date and time, when the token expires.
      */
+    @SuppressWarnings("SameParameterValue")
     private Date calculateExpirationDate(int expirationTime) {
 
         Calendar calendar = Calendar.getInstance();

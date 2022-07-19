@@ -17,9 +17,11 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             = "Bad credentials/Unregistered user/Unverified user.";
 
     @Autowired
+    @SuppressWarnings("unused")
     private CustomUserDetailsService customUserDetailsService;
 
     @Autowired
+    @SuppressWarnings("unused")
     private PasswordEncoder passwordEncoder;
 
     /**

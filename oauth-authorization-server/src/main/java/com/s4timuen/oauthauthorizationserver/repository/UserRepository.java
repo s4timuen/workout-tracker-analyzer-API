@@ -11,14 +11,7 @@ import java.util.Optional;
  */
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-
-    /**
-     * Query repository for the respective user by nickname.
-     *
-     * @return User data for the respective nickname, from repository.
-     */
-    Optional<User> findByNickname(String nickname);
-
+    
     /**
      * Query repository for the respective user by email.
      *

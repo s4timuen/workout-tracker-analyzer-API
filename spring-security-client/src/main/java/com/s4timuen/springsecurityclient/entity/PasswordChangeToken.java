@@ -20,7 +20,6 @@ import java.util.Date;
 @Table(name = "password_change_tokens")
 public class PasswordChangeToken {
 
-
     private static final int EXPIRATION_TIME = 30;  // 30min
 
     @Id
@@ -52,6 +51,7 @@ public class PasswordChangeToken {
      *
      * @param token Password change token.
      */
+    @SuppressWarnings("unused")
     public PasswordChangeToken(String token) {
         super();
         this.token = token;
@@ -64,6 +64,7 @@ public class PasswordChangeToken {
      * @param expirationTime How long the token is valid, in minutes.
      * @return Date and time, when the token expires.
      */
+    @SuppressWarnings("SameParameterValue")
     private Date calculateExpirationDate(int expirationTime) {
 
         Calendar calendar = Calendar.getInstance();

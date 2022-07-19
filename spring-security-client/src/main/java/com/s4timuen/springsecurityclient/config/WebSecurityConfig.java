@@ -12,6 +12,7 @@ import org.springframework.security.web.SecurityFilterChain;
  * Configuration for web security.
  */
 @EnableWebSecurity
+@SuppressWarnings("unused")
 public class WebSecurityConfig {
 
     private static final int ENCRYPTION_COST_FACTOR = 12;

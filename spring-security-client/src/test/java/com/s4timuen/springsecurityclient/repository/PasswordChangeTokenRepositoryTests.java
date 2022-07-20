@@ -23,8 +23,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class PasswordChangeTokenRepositoryTests {
 
     @Autowired
+    @SuppressWarnings("unused")
     private PasswordChangeTokenRepository passwordChangeTokenRepository;
     @Autowired
+    @SuppressWarnings("unused")
     private UserRepository userRepository;
 
     private final User user = new User(
@@ -68,11 +70,9 @@ public class PasswordChangeTokenRepositoryTests {
     public void findByToken() {
         // given
         String invalidToken = UUID.randomUUID().toString();
-
         // when
         Optional<PasswordChangeToken> testToken01 = passwordChangeTokenRepository.findByToken(passwordChangeToken.getToken());
         Optional<PasswordChangeToken> testToken02 = passwordChangeTokenRepository.findByToken(invalidToken);
-
         // then
         assertThat(testToken01).isPresent();
         assertThat(testToken02).isEmpty();

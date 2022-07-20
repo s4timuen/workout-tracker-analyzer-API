@@ -22,8 +22,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class VerificationTokenRepositoryTests {
 
     @Autowired
+    @SuppressWarnings("unused")
     private VerificationTokenRepository verificationTokenRepository;
     @Autowired
+    @SuppressWarnings("unused")
     private UserRepository userRepository;
 
     private final User user = new User(
@@ -67,11 +69,9 @@ public class VerificationTokenRepositoryTests {
     public void findByToken() {
         // given
         String invalidToken = UUID.randomUUID().toString();
-
         // when
         Optional<VerificationToken> testToken01 = verificationTokenRepository.findByToken(verificationToken.getToken());
         Optional<VerificationToken> testToken02 = verificationTokenRepository.findByToken(invalidToken);
-
         // then
         assertThat(testToken01).isPresent();
         assertThat(testToken02).isEmpty();

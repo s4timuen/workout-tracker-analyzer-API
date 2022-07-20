@@ -14,11 +14,11 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * tests for verification token entity.
+ * Password change token tests.
  */
 @SpringBootTest
-@DisplayName("Verification Token")
-public class VerificationTokenTest {
+@DisplayName("Password Change Token")
+public class PasswordChangeTokenTest {
 
     Long id = 1L;
     User user = new User(
@@ -33,7 +33,7 @@ public class VerificationTokenTest {
     );
     String token;
     Date expirationDate;
-    VerificationToken verificationToken;
+    PasswordChangeToken passwordChangeToken;
 
     @BeforeEach
     public void setUp() {
@@ -41,7 +41,7 @@ public class VerificationTokenTest {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(new Date().getTime());
         expirationDate = new Date(calendar.getTime().getTime());
-        verificationToken = new VerificationToken(
+        passwordChangeToken = new PasswordChangeToken(
                 id,
                 user,
                 token,
@@ -54,7 +54,7 @@ public class VerificationTokenTest {
         user = null;
         token = null;
         expirationDate = null;
-        verificationToken = null;
+        passwordChangeToken = null;
     }
 
     /**
@@ -64,7 +64,7 @@ public class VerificationTokenTest {
     @DisplayName("Get ID")
     public void getId() {
         // when
-        Long testId = verificationToken.getId();
+        Long testId = passwordChangeToken.getId();
         // then
         assertEquals(testId, id);
     }
@@ -76,7 +76,7 @@ public class VerificationTokenTest {
     @DisplayName("Get User")
     public void getUser() {
         // when
-        User testUser = verificationToken.getUser();
+        User testUser = passwordChangeToken.getUser();
         // then
         assertEquals(testUser, user);
     }
@@ -88,7 +88,7 @@ public class VerificationTokenTest {
     @DisplayName("Get Token")
     public void getToken() {
         // when
-        String testToken = verificationToken.getToken();
+        String testToken = passwordChangeToken.getToken();
         // then
         assertEquals(testToken, token);
     }
@@ -100,7 +100,7 @@ public class VerificationTokenTest {
     @DisplayName("Get Expiration Date")
     public void getExpirationDate() {
         // when
-        Date testExpirationDate = verificationToken.getExpirationDate();
+        Date testExpirationDate = passwordChangeToken.getExpirationDate();
         // then
         assertEquals(testExpirationDate, expirationDate);
     }
@@ -114,9 +114,9 @@ public class VerificationTokenTest {
         // given
         Long testId = 2L;
         // when
-        verificationToken.setId(testId);
+        passwordChangeToken.setId(testId);
         // then
-        assertEquals(verificationToken.getId(), testId);
+        assertEquals(passwordChangeToken.getId(), testId);
     }
 
     /**
@@ -137,9 +137,9 @@ public class VerificationTokenTest {
                 false
         );
         // when
-        verificationToken.setUser(testUser);
+        passwordChangeToken.setUser(testUser);
         // then
-        assertEquals(verificationToken.getUser(), testUser);
+        assertEquals(passwordChangeToken.getUser(), testUser);
     }
 
     /**
@@ -151,9 +151,9 @@ public class VerificationTokenTest {
         // given
         String testToken = UUID.randomUUID().toString();
         // when
-        verificationToken.setToken(testToken);
+        passwordChangeToken.setToken(testToken);
         // then
-        assertEquals(verificationToken.getToken(), testToken);
+        assertEquals(passwordChangeToken.getToken(), testToken);
     }
 
     /**
@@ -167,8 +167,8 @@ public class VerificationTokenTest {
         calendar.setTimeInMillis(new Date().getTime());
         Date testExpirationDate = new Date(calendar.getTime().getTime());
         // when
-        verificationToken.setExpirationDate(testExpirationDate);
+        passwordChangeToken.setExpirationDate(testExpirationDate);
         // then
-        assertEquals(verificationToken.getExpirationDate(), testExpirationDate);
+        assertEquals(passwordChangeToken.getExpirationDate(), testExpirationDate);
     }
 }

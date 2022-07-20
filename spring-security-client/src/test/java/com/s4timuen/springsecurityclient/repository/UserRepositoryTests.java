@@ -22,6 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class UserRepositoryTests {
 
     @Autowired
+    @SuppressWarnings("unused")
     private UserRepository userRepository;
 
     private final User user = new User(
@@ -55,7 +56,6 @@ public class UserRepositoryTests {
         // when
         Optional<User> testUser01 = userRepository.findByNickname(user.getNickname());
         Optional<User> testUser02 = userRepository.findByNickname("kevin");
-
         // then
         assertThat(testUser01).isPresent();
         assertThat(testUser02).isEmpty();
@@ -71,7 +71,6 @@ public class UserRepositoryTests {
         // when
         Optional<User> testUser01 = userRepository.findByEmail(user.getEmail());
         Optional<User> testUser02 = userRepository.findByNickname("kevin@gmail.com");
-
         // then
         assertThat(testUser01).isPresent();
         assertThat(testUser02).isEmpty();
